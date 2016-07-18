@@ -1,3 +1,6 @@
+
+from future.utils import with_metaclass
+
 import json
 import types
 
@@ -148,9 +151,9 @@ class Collection_metaclass(type) :
         try :
             return cls.collectionClasses[name]
         except KeyError :
-            raise KeyError("There is no Collection Class of type: '%s';"+
-                           " currently supported values: [%s]"
-                           % (name, ', '.join(getCollectionClasses().keys())))
+            possibleClasses = ', '.join(getCollectionClasses().keys())
+            raise KeyError("There is no Collection Class of type: '{0}';"+
+                           " currently supported values: [{1}]".format(name, possibleClasses))
 
     @classmethod
     def isCollection(cls, name) :
@@ -195,7 +198,7 @@ def getCollectionClasses() :
     "returns a dictionary of all defined collection classes"
     return Collection_metaclass.collectionClasses
 
-class Collection(object, metaclass=Collection_metaclass) :
+class Collection(object, with_metaclass(Collection_metaclass)) :
     """A document collection. Collections are meant to be instanciated by databases"""
     #here you specify the fields that you want for the documents in your collection
     _fields = {}
