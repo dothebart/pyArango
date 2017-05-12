@@ -123,7 +123,7 @@ class AbstractInstanciationError(Exception):
     def __str__(self):
         return self.message
 
-class DocumentNotFoundError(Exception):
+class DocumentNotFoundError(pyArangoException):
     def __init__(self, message, errors=None):
         if not errors:
             errors = {}
