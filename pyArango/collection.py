@@ -268,7 +268,9 @@ class Collection(with_metaclass(Collection_metaclass, object)) :
         if not r.status_code == 200 or data["error"] :
             raise DeletionError(data["errorMessage"], data)
 
-    def createDocument(self, initValues = {}) :
+    def createDocument(self, initValues=None):
+        if not initValues:
+            initValues = {}
         "create and returns a document"
         return self.documentClass(self, initValues)
 
@@ -352,7 +354,7 @@ class Collection(with_metaclass(Collection_metaclass, object)) :
                     ps = k
                 else :
                     ps = "%s.%s" % (parentsStr, k)
-                
+
                 if type(v) is dict :
                     _validate(v, res, ps)
                 elif k not in cls.arangoPrivates :
@@ -534,8 +536,10 @@ class Edges(Collection) :
                 raise e
         return valValue
 
-    def createEdge(self, initValues = {}) :
+    def createEdge(self, initValues=None) :
         "alias for createDocument, both functions create an edge"
+        if not initValues:
+            initValues = {}
         return self.createDocument(initValues)
 
     def getInEdges(self, vertex, rawResults = False) :
