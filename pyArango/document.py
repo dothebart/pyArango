@@ -8,13 +8,13 @@ class Document(object) :
     """The class that represents a document. Documents are meant to be instanciated by collections"""
 
     def __init__(self, collection, jsonFieldInit=None) :
-        if not jsonFieldInit:
+        if jsonFieldInit is None:
             jsonFieldInit = {}
         self.reset(collection, jsonFieldInit)
         self.typeName = "ArangoDoc"
 
     def reset(self, collection, jsonFieldInit=None) :
-        if not jsonFieldInit:
+        if jsonFieldInit is None:
             jsonFieldInit = {}
         """replaces the current values in the document by those in jsonFieldInit"""
         self.collection = collection
@@ -221,12 +221,12 @@ class Document(object) :
 class Edge(Document) :
     """An Edge document"""
     def __init__(self, edgeCollection, jsonFieldInit=None) :
-        if not jsonFieldInit:
+        if jsonFieldInit is None:
             return {}
         self.reset(edgeCollection, jsonFieldInit)
 
     def reset(self, edgeCollection, jsonFieldInit=None) :
-        if not jsonFieldInit:
+        if jsonFieldInit is None:
             jsonFieldInit = {}
         Document.reset(self, edgeCollection, jsonFieldInit)
         self.typeName = "ArangoEdge"
